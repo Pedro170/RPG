@@ -1,0 +1,4 @@
+.character {
+  position: absolute;
+  background: url('/public/assets/char.png') no-repeat;
+}

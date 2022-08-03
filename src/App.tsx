@@ -1,24 +1,48 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Character from './components/Character/Character';
+import { useCharacter } from './hooks/useCharacter';
 
-function App() {
+const App = () => {
+  const char = useCharacter();
+
+  React.useEffect(() => {
+    window.addEventListener( 'keydown', handleKeyDown );
+  }, [])
+
+  const handleKeyDown = ( event: KeyboardEvent ) => {
+    switch( event.code ) {
+      case 'KeyA':
+      case 'ArrowLeft':
+
+        char.moveLeft()
+      break;
+
+      case 'KeyW':
+      case 'ArrowUp':
+        char.moveUp()
+
+      break;
+
+      case 'KeyD':
+      case 'ArrowRight':
+        char.moveRight()
+
+      break;
+
+      case 'KeyS':
+      case 'ArrowDown':
+        char.moveDown()
+      break;
+    }
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="map">
+        <Character x={ char.x } y={ char.y } side={ char.side } />
+      </div>
     </div>
   );
 }
